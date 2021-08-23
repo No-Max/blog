@@ -21,7 +21,12 @@
     text-align: right;
 }
 
-.post span{
+.post span {
   font-size: 12px;
   color: rgb(187, 187, 187);
+}
+
+.post img {
+  width: 200px;
+  margin-right: 10px;
 }

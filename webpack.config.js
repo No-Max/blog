@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/main.js",
@@ -7,7 +8,15 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
-  plugins: [new HtmlWebpackPlugin({ inject: "body", template: './src/index.html' })],
+  plugins: [
+    new HtmlWebpackPlugin({ inject: "body", template: './src/index.html' }),
+    new CopyPlugin({
+      patterns: [{ from: "./src/img", to: "./img" }],
+    },
+    {
+      copyUnmodified: true,
+    }),
+  ],
   module: {
     rules: [
       {
