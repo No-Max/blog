@@ -10,9 +10,9 @@ export default class Post extends Component {
     render() {
         this.$element.innerHTML = `<div class="horisontal">
           <div class="post-title">${this._post.title}</div>
-          <div class="post-views"><span>Просмотров:</span> ${this._post.views}</div>
+          <div class="post-views">${this._post.views}</div>
         </div>
       <div class="post-content">${this._post.body}</div>
-      <div class="post-author"><span>Пользователь:</span> ${this._post.userName}</div>`;
+      <div class="post-author">${this._post.userName}</div>`;
     }
 }

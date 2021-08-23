@@ -6,13 +6,13 @@ import PostsList from "./components/PostsList/PostsList.js";
 const app = document.querySelector('#app')
 
 axios.get(config.server + "posts").then((response) => {
-  app.appendChild(new PostsList(response.data).$element);
+    app.appendChild(new PostsList(response.data).$element);
 
 
 
-  // response.data.forEach((post) => {
-  //     app.appendChild(
-  //         new Post(post).$element
-  //     );
-  // });
+    // response.data.forEach((post) => {
+    //     app.appendChild(
+    //         new Post(post).$element
+    //     );
+    // });
 });
