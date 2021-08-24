@@ -1,18 +1,27 @@
-import "./style.css";
-import axios from "axios";
-import config from "./config/config.js";
+// импорты
 import PostsList from "./components/PostsList/PostsList.js";
+import PostForm from "./components/PostForm/PostForm.js";
+import { getPosts, createPost } from "./services/posts.js";
+import "./style.css";
 
-const app = document.querySelector('#app')
+// корневой элеммент приложения
+const app = document.querySelector("#app");
 
-axios.get(config.server + "posts").then((response) => {
-  app.appendChild(new PostsList(response.data).$element);
+// создаем компоненты
+const postList = new PostsList([]);
+const postForm = new PostForm("post-form");
 
+// добавляем компоненты на страницу
+app.appendChild(postForm.$element);
+app.appendChild(postList.$element);
 
+// получаем данные для постов при загрузке скрипта
+getPosts().then((response) => {
+  postList.posts = response.data;
+  postList.renderPosts();
+});
 
-  // response.data.forEach((post) => {
-  //     app.appendChild(
-  //         new Post(post).$element
-  //     );
-  // });
+// обработчик для создания нового поста
+postForm.onSubmit((post) => {
+  createPost(post);
 });
