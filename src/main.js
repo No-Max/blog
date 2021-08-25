@@ -1,8 +1,14 @@
 // импорты
 import PostsList from "./components/PostsList/PostsList.js";
 import PostForm from "./components/PostForm/PostForm.js";
-import { getPosts, createPost } from "./services/posts.js";
+import { 
+  getPosts,
+  createPost,
+  deletePost,
+  getUsers,
+} from "./services/posts.js";
 import "./style.css";
+
 
 // корневой элеммент приложения
 const app = document.querySelector("#app");
@@ -21,7 +27,25 @@ getPosts().then((response) => {
   postList.renderPosts();
 });
 
+// получаем список пользователей
+getUsers().then((response) => {
+  postForm.users = response.data;
+  postForm.updateUserList();
+});
+
+// обработчик удаления текстов, статей и постов
+postList.onDeletePost((postId) => {
+  deletePost(postId).then((response) => {
+    postList.posts = response.data;
+    postList.renderPosts();
+  });
+})
+
 // обработчик для создания нового поста
 postForm.onSubmit((post) => {
-  createPost(post);
+  createPost(post).then((response) => {
+    postList.posts.push(response.data);
+    postList.renderPosts();
+    postForm.clearForm();
+  });
 });

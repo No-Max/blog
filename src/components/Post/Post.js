@@ -7,14 +7,25 @@ export default class Post extends Component {
         this._post = post;
         this.render();
     }
+
+    onDelete(handler) {
+      this.$element.querySelector('.delete-button').addEventListener('click', () => {
+        if (window.confirm('Точно удалить?')) {
+          handler(this._post.id);
+        }
+      });
+    }
+    
     render() {
       this.$element.innerHTML = `<div class="horisontal">
-        <div>
-          <img src="img/${this._post.image}"/>
-        </div>
+        ${ this._post.image ? `
+          <div>
+            <img src="img/${this._post.image}"/>
+          </div>
+        ` : '' }
         <div>
             <div class="horisontal">
-            <div class="post-title">${this._post.title}</div>
+            <div class="post-title">${this._post.title} <button class="delete-button">🗑️</button></div>
             <div class="post-views"><span>Просмотров:</span> ${this._post.views}</div>
           </div>
           <div class="post-content">${this._post.body}</div>
