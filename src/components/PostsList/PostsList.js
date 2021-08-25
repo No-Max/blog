@@ -22,8 +22,18 @@ export default class PostsList extends Component {
         isLength: false,
         optionName: "По просмотрам",
       },
+      {
+        property: "userName",
+        order: 1,
+        isLength: false,
+        optionName: "По пользователям",
+      },
     ];
     this.render();
+  }
+
+  onDeletePost(handler) {
+    this.deleteHandler = handler;
   }
 
   sortHandler(property, order = 1, isLength = false) {
@@ -38,14 +48,16 @@ export default class PostsList extends Component {
   renderPosts() {
     this.postsContainer.$element.innerHTML = "";
     this.posts.forEach((post) => {
-      this.postsContainer.$element.appendChild(new Post(post).$element);
+      const postComponent = new Post(post);
+      this.postsContainer.$element.appendChild(postComponent.$element);
+      postComponent.onDelete((id) => { this.deleteHandler(id); })
     });
   }
 
   render() {
     this.$element.append(this.sortSelect.$element);
     this.sortParams.forEach((p) => {
-      this.sortSelect.$element.append(new Option(p.optionName, p.property));
+      this.sortSelect.$element.append(new Option(p.optionName, p.property, p.userName));
     });
     this.sortSelect.$element.addEventListener("change", (e) => {
       const param = this.sortParams.find(

@@ -30,3 +30,15 @@
   width: 200px;
   margin-right: 10px;
 }
+.select {
+  padding: 2px 8px; 
+  border-radius: 4px;
+  border: 2px solid skyblue;
+  color: rgb(43, 44, 44);
+  outline: none;
+  margin-bottom: 8px;
+}
+.delete-button {
+  padding: 4px;
+  margin-right: 8PX;
+}
